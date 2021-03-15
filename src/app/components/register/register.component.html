@@ -1,0 +1,63 @@
+ <div class="jumbotron">
+ <div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form *ngIf="!this.registered" [formGroup]="this.registerService.dataForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': this.registered ||  f.firstName.errors }" />
+                    <div *ngIf="this.registered && f.firstName.errors" class="invalid-feedback">
+                        <p *ngIf="f.firstName.errors.required">First Name is required</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.lastName.errors }" />
+                    <div *ngIf="this.registered && f.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Phone No</label>
+                    <input type="text" formControlName="phoneNo" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.phoneNo.errors }" />
+                    <div *ngIf="this.registered && f.phoneNo.errors" class="invalid-feedback">
+                        <div *ngIf="f.phoneNo.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.email.errors }" />
+                    <div *ngIf="this.registered && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.password.errors }" />
+                    <div *ngIf="this.registered && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                        <div *ngIf="f.password.errors.minLength">Password must be at least 6 characters</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.confirmPassword.errors }" />
+                    <div *ngIf="this.registered && f.confirmPassword.errors" class="invalid-feedback">
+                        <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" [disabled]="!registerService.dataForm.valid">Register</button>
+                </div>
+            </form>
+
+            <div *ngIf="this.registered">
+                <h1>Registration successfully!</h1>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
