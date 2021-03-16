@@ -1,52 +1,66 @@
  <div class="jumbotron">
- <div class="container">
+<div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <form *ngIf="!this.registered" [formGroup]="this.registerService.dataForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': this.registered ||  f.firstName.errors }" />
-                    <div *ngIf="this.registered && f.firstName.errors" class="invalid-feedback">
-                        <p *ngIf="f.firstName.errors.required">First Name is required</p>
+                    
+                    <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': this.registerService.dataForm.controls['firstName'].invalid && 
+                    (this.registerService.dataForm.controls['firstName'].dirty || this.registerService.dataForm.controls['firstName'].touched)}"/>
+                    <div *ngIf="this.registerService.dataForm.controls['firstName'].errors?.required" class="invalid-feedback">
+                        <div>First Name is required</div>
                     </div>
+
                 </div>
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.lastName.errors }" />
-                    <div *ngIf="this.registered && f.lastName.errors" class="invalid-feedback">
-                        <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                    <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': this.registerService.dataForm.controls['lastName'].invalid && 
+                    (this.registerService.dataForm.controls['lastName'].dirty || this.registerService.dataForm.controls['lastName'].touched) }" />
+                    <div *ngIf="this.registerService.dataForm.controls['lastName'].errors?.required" class="invalid-feedback">
+                        <div>Last Name is required</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Phone No</label>
-                    <input type="text" formControlName="phoneNo" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.phoneNo.errors }" />
-                    <div *ngIf="this.registered && f.phoneNo.errors" class="invalid-feedback">
-                        <div *ngIf="f.phoneNo.errors.required">Last Name is required</div>
+                    <input type="text" formControlName="phoneNo" class="form-control" [ngClass]="{ 'is-invalid': this.registerService.dataForm.controls['phoneNo'].invalid && 
+                    (this.registerService.dataForm.controls['phoneNo'].dirty || this.registerService.dataForm.controls['phoneNo'].touched) }" />
+                    <div *ngIf="this.registerService.dataForm.controls['phoneNo'].errors?.required" class="invalid-feedback">
+                        <div>Phone number is required</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.email.errors }" />
-                    <div *ngIf="this.registered && f.email.errors" class="invalid-feedback">
-                        <div *ngIf="f.email.errors.required">Email is required</div>
-                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': this.registerService.dataForm.controls['email'].invalid && 
+                    (this.registerService.dataForm.controls['email'].dirty || this.registerService.dataForm.controls['email'].touched) }" />
+                    <div *ngIf="this.registerService.dataForm.controls['email'].errors?.required" class="invalid-feedback">
+                        <div >Email is required</div>
+                    </div>
+                    <div *ngIf="this.registerService.dataForm.controls['email'].errors?.email" class="invalid-feedback">
+                        <div>Email must be a valid email address</div>
                     </div>
                     
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.password.errors }" />
-                    <div *ngIf="this.registered && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Password is required</div>
-                        <div *ngIf="f.password.errors.minLength">Password must be at least 6 characters</div>
+                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': this.registerService.dataForm.controls['password'].invalid && 
+                    (this.registerService.dataForm.controls['password'].dirty || this.registerService.dataForm.controls['password'].touched) }" />
+                    <div *ngIf="this.registerService.dataForm.controls['password'].errors?.required" class="invalid-feedback">
+                        <div>Password is required</div>
+                    </div>
+                    <div *ngIf="this.registerService.dataForm.controls['password'].errors?.minlength" class="invalid-feedback">
+                        <div >Password must be at least 6 characters</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': this.registered && f.confirmPassword.errors }" />
-                    <div *ngIf="this.registered && f.confirmPassword.errors" class="invalid-feedback">
-                        <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
-                        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                    <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': this.registerService.dataForm.controls['confirmPassword'].invalid && 
+                    (this.registerService.dataForm.controls['confirmPassword'].dirty || this.registerService.dataForm.controls['confirmPassword'].touched) }" />
+                    <div *ngIf="this.registerService.dataForm.controls['confirmPassword'].errors?.required" class="invalid-feedback">
+                        <div>Confirm Password is required</div>
+                    </div>
+                    <div *ngIf="this.registerService.dataForm.errors?.passwordsNotMatching" class="invalid-feedback">
+                        <div>Passwords must match</div>
                     </div>
                 </div>
                 <div class="form-group">
