@@ -2,6 +2,7 @@ import { RegisterService } from './../../services/register.service';
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 class PasswordMustMatch {
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
   registered = false;
 
 
-  constructor(public registerService: RegisterService, private formBuilder: FormBuilder) { }
+  constructor(public registerService: RegisterService, private formBuilder: FormBuilder, private router: Router) { }
 
 
 
@@ -67,6 +68,8 @@ export class RegisterComponent implements OnInit {
               this.registered = true;
               console.log(data);
               this.newUser = new User();
+              setInterval(() => { this.router.navigateByUrl("/login"), 500 });
+
             },
             error => console.log(error)
           );

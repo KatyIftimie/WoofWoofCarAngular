@@ -1,1 +1,28 @@
-<p>login works</p>
+ 
+<div class="container">
+    <form (ngSubmit)="onSubmit()" [hidden]="loginService.checkLogin()">
+  
+      <h2>Login User</h2>
+  
+      <div class="row">
+        <label for="email">Email</label>
+        <input class="form-control" id="email" type="text" required [(ngModel)]="user.email" ngControl="email" placeholder="Email" name="email" required><br>
+      </div>
+  
+      <div class="row">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" type="password" required [(ngModel)]="user.password" ngControl="password" placeholder="password" name="password" required>
+      </div>
+  
+  
+      <hr>
+  
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  
+    <div [hidden]="!loginService.checkLogin()">
+      <h3>Logged In Successfully! </h3>
+      <h2>Welcome back, {{currentUser}}!</h2>
+    </div>
+  
+  </div>
