@@ -1,0 +1,82 @@
+<div class="jumbotron">
+    <div class="container">
+<form #rentalForm="ngForm" (ngSubmit)="addRide()">
+  <!-- <div class="form-group">
+    <input type="hidden" class="form-control" 
+    name="userId"
+    [(ngModel)]="newRide.userId" value="this.userId">
+  </div> -->
+    <div class="form-group">
+      <label for="departure">departure</label>
+      <input type="text"
+             class="form-control"
+             id="departure"
+             name="departure"
+             [(ngModel)]="newRide.departure"
+             required>
+    </div>
+    <div class="form-group">
+        <label for="arrival">arrival</label>
+        <input type="text"
+               class="form-control"
+               id="arrival"
+               name="arrival"
+               [(ngModel)]="newRide.arrival"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="seatsAvailable">seatsAvailable</label>
+        <input type="number"
+               class="form-control"
+               id="seatsAvailable"
+               name="seatsAvailable"
+               [(ngModel)]="newRide.seatsAvailable"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="pricePerSeat">pricePerSeat</label>
+        <input type="number"
+               class="form-control"
+               id="pricePerSeat"
+               name="pricePerSeat"
+               [(ngModel)]="newRide.pricePerSeat"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="departureTime">Date leaving:</label>
+        <input type="datetime-local"
+               class="form-control"
+               id="departureTime"
+               name="departureTime"
+               [(ngModel)]="newRide.departureTime"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="animalType">Animals type:</label>
+        <select 
+                class="form-control"
+               id="animalType"
+               name="animalType"
+               [(ngModel)]="newRide.animalType">
+              
+                   <option *ngFor="let animal of animals[0]" [value]='animal.animalId'>{{animal.name}}</option>
+            </select>
+      </div>
+      <div class="form-group">
+        <label for="animalType">Cars type:</label>
+            <select 
+                class="form-control"
+                id="carType"
+                name="carType"
+                [(ngModel)]="newRide.carType">
+                   <option *ngFor="let car of cars[0]" [value]='car.carId'>{{car.name}}</option>
+            </select>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary" >Submit</button>
+    </div>
+
+    </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.carousel-pic {
+  width: 1100px;
+  height: 700px;
+  margin: auto;
+  display: block;
+  margin-bottom: 83px;
+}
+
+body {
+  height: 100%;
+}
+
+h2,
+p {
+  font-family: 'Dancing Script', cursive;
+  text-align: center;
+}
+
+.home {
+  height: 120%;
+  background-color: rgb(161, 180, 212);
+}

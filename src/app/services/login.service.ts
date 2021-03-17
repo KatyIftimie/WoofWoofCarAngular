@@ -23,13 +23,14 @@ export class LoginService {
     }
 
     checkLogin(): boolean {
-        if (localStorage.getItem('currentUserName') != null
-            && localStorage.getItem('currentUserName') !== '') {
+        if (localStorage.getItem('currentUser') != null
+            && localStorage.getItem('currentUser') !== '') {
             console.log(localStorage.getItem("currentUser"));
             return true;
         } else {
             return false;
         }
     }
+
 
 }
