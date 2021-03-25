@@ -1,3 +1,14 @@
+# Woof Woof Car
+This is a web project similar to known application "BlaBla Car", but is designed to transport owners together with their pets.
+
+
+# Link for backend:
+https://github.com/KatyIftimie/WoofWoofCar
+
+
+
+
+
 # Woofwoofcarangular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
