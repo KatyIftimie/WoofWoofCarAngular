@@ -1,29 +1,39 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="collapse navbar-collapse" id="">
       <ul class="navbar-nav">
         <Li class="nav-item">
-          <a class="nav-link" routerLink="#">
-            Woof Woof Car
-          </a>
+          <!-- <a class="nav-link" style="color: lavender; padding: 10px; margin:0; background-color: rgb(173, 91, 231);" routerLink="#"> -->
+            <a class="navbar-brand text-light">Woof Woof Car</a>
+          <!-- </a> -->
         </Li>
+        <li class="nav-item"  *ngIf="(loginStatus$ | async) as LoginStatus">
+          <a class="nav-link text-light" *ngIf="LoginStatus"  routerLink="add-ride">  Hello {{userName}} !  </a>
+        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Home page">
- 
-            <a class="nav-link" routerLink="/">
-                Home
-            </a>
+            <a class="nav-link text-light" routerLink="/">[  Home  ]</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="login">Login</a>
+
+
+        <li class="nav-item"  *ngIf="(loginStatus$ | async) as LoginStatus">
+          <a class="nav-link text-light" *ngIf="LoginStatus"  routerLink="add-ride">[ Add ride ] </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="register">Register</a>
+        <li class="nav-item"  *ngIf="(loginStatus$ | async) as LoginStatus">
+            <a class="nav-link text-light" *ngIf="LoginStatus"  routerLink="rides">[ View rides ]</a>
           </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="add-ride">Add ride</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="rides">View rides</a>
+
+
+          <li class="nav-item" *ngIf="!(loginStatus$ | async) as LoginStatus">
+            <a class="nav-link text-light p-2" *ngIf="LoginStatus" routerLink="login">[ Login ]</a>
           </li>
+          
+          <li class="nav-item" *ngIf="!(loginStatus$ | async) as LoginStatus">
+              <a class="nav-link text-light" *ngIf="LoginStatus"  routerLink="register">[ Register ]</a>
+            </li>
+
+          <li class="nav-item "  *ngIf="(loginStatus$ | async) as LoginStatus">
+            <a class="btn btn-white text-light" *ngIf="LoginStatus"  (click)="onLogout()">[ Logout ]</a>
+          </li>
+
       </ul>
     </div>
   </nav>

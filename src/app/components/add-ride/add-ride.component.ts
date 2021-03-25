@@ -22,6 +22,7 @@ export class AddRideComponent implements OnInit {
   constructor(private rideService: RideService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.newRide = new Ride();
     // this.animals.push(this.rideService.getAnimalTypes());
     this.rideService.getCarTypes().subscribe((data: []) => {
       this.cars.push(data);
@@ -37,20 +38,22 @@ export class AddRideComponent implements OnInit {
       // console.log(data);
       this.user.push(data);
       this.userId = this.user[0].userId;
+      this.newRide.userId = this.userId;
       console.log(this.userId);
+      // console.log(this.userId);
       // this.userId = data.valueOf()
     })
-    this.newRide = new Ride();
-    this.newRide.userId = this.userId;
+
   }
 
 
   addRide() {
     console.log(this.newRide);
     this.rideService.addRide(this.newRide).subscribe(
-      (ride: Ride) => {
-        console.log(ride);
-
+      data => {
+        console.log(data);
+        this.newRide = new Ride();
+        this.router.navigateByUrl("/rides");
       }
     )
   }

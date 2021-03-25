@@ -1,8 +1,10 @@
- <div class="jumbotron">
+ <div class="jumbotron" style="height: 860px; margin-bottom: 0;">
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <form *ngIf="!this.registered" [formGroup]="this.registerService.dataForm" (ngSubmit)="onSubmit()">
+                <h2 style="text-align: center;">Register User</h2>
+
                 <div class="form-group">
                     <label>First Name</label>
                     

@@ -1,1 +1,21 @@
-<p>rides works!</p>
+<div class ="container">
+    <br>
+    <br>
+    <h1 style="text-align: center;">Available Rides</h1>
+
+        <div *ngFor="let ride of rides" class="card text-center " style="border: 2px solid rgb(97, 94, 94); margin-top: 20px; margin-bottom: 20px;">
+            <div class="card-header" style="background-color: blueviolet;">
+       Posted by: {{ride.user.firstName}} {{ride.user.lastName}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title" >{{ride.departure | titlecase}} to {{ride.arrival | titlecase}}</h5>
+        <p class="card-text">Leaving on {{ getDay(ride.departureTime) }} at {{getTime(ride.departureTime)}}</p>
+        <!-- getDay(ride.departureTime) -->
+        <a href="#" class="btn btn-primary">Details</a>
+    </div>
+    <div class="card-footer text-muted">
+        Price: {{ride.pricePerSeat}} lei.
+    </div>
+</div>
+</div>
+

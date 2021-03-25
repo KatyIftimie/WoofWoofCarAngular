@@ -1,13 +1,11 @@
-<div class="jumbotron">
+<div class="jumbotron" style="height: 860px; margin-bottom: 0;">
     <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
 <form #rentalForm="ngForm" (ngSubmit)="addRide()">
-  <!-- <div class="form-group">
-    <input type="hidden" class="form-control" 
-    name="userId"
-    [(ngModel)]="newRide.userId" value="this.userId">
-  </div> -->
+  <h2 style="text-align: center;">Add a ride</h2>
     <div class="form-group">
-      <label for="departure">departure</label>
+      <label for="departure">Departure:</label>
       <input type="text"
              class="form-control"
              id="departure"
@@ -16,7 +14,7 @@
              required>
     </div>
     <div class="form-group">
-        <label for="arrival">arrival</label>
+        <label for="arrival">Arrival:</label>
         <input type="text"
                class="form-control"
                id="arrival"
@@ -25,7 +23,7 @@
                required>
       </div>
       <div class="form-group">
-        <label for="seatsAvailable">seatsAvailable</label>
+        <label for="seatsAvailable">Seats Available:</label>
         <input type="number"
                class="form-control"
                id="seatsAvailable"
@@ -34,7 +32,7 @@
                required>
       </div>
       <div class="form-group">
-        <label for="pricePerSeat">pricePerSeat</label>
+        <label for="pricePerSeat">Price (for a seat):</label>
         <input type="number"
                class="form-control"
                id="pricePerSeat"
@@ -52,23 +50,23 @@
                required>
       </div>
       <div class="form-group">
-        <label for="animalType">Animals type:</label>
+        <label for="animalTypeId">Animals type you can take with you::</label>
         <select 
                 class="form-control"
-               id="animalType"
-               name="animalType"
-               [(ngModel)]="newRide.animalType">
+               id="animalTypeId"
+               name="animalTypeId"
+               [(ngModel)]="newRide.animalTypeId">
               
                    <option *ngFor="let animal of animals[0]" [value]='animal.animalId'>{{animal.name}}</option>
             </select>
       </div>
       <div class="form-group">
-        <label for="animalType">Cars type:</label>
+        <label for="carTypeId">Car type you're having:</label>
             <select 
                 class="form-control"
-                id="carType"
-                name="carType"
-                [(ngModel)]="newRide.carType">
+                id="carTypeId"
+                name="carTypeId"
+                [(ngModel)]="newRide.carTypeId">
                    <option *ngFor="let car of cars[0]" [value]='car.carId'>{{car.name}}</option>
             </select>
       </div>
@@ -78,5 +76,7 @@
     </div>
 
     </form>
+    </div>
+      </div>
     </div>
 </div>
