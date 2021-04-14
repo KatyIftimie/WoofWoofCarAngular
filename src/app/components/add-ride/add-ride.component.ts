@@ -17,13 +17,25 @@ export class AddRideComponent implements OnInit {
   cars: any[] = [];
   userId: string;
   user: any[] = [];
+  formattedDepartureAddress: string;
+  formattedArrivalAddress: string;
+
+  options = {
+    strictBounds: false,
+    bounds: undefined,
+    types: ['geocode'],
+    fields: undefined,
+    origin: undefined,
+    componentRestrictions: {
+      country: 'Ro'
+    }
+  }
 
 
   constructor(private rideService: RideService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.newRide = new Ride();
-    // this.animals.push(this.rideService.getAnimalTypes());
     this.rideService.getCarTypes().subscribe((data: []) => {
       this.cars.push(data);
       console.log(this.cars);
@@ -33,22 +45,31 @@ export class AddRideComponent implements OnInit {
       console.log(this.animals);
     })
     this.userService.getUserByEmail().subscribe((data) => {
-      // const e = data.toString();
-      // console.log(e);
-      // console.log(data);
       this.user.push(data);
       this.userId = this.user[0].userId;
       this.newRide.userId = this.userId;
       console.log(this.userId);
-      // console.log(this.userId);
-      // this.userId = data.valueOf()
     })
 
   }
 
+  getDeparture(place: any) {
+    this.formattedDepartureAddress = place.formatted_address;
+  }
+
+  getArrival(place: any) {
+    this.formattedArrivalAddress = place.formatted_address;
+  }
+
+
+
+
+
 
   addRide() {
     console.log(this.newRide);
+    this.newRide.departure = this.formattedDepartureAddress;
+    this.newRide.arrival = this.formattedArrivalAddress;
     this.rideService.addRide(this.newRide).subscribe(
       data => {
         console.log(data);
@@ -57,4 +78,5 @@ export class AddRideComponent implements OnInit {
       }
     )
   }
+
 }

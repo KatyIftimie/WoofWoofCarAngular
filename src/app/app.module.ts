@@ -11,6 +11,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { AddRideComponent } from './components/add-ride/add-ride.component';
 import { RidesComponent } from './components/rides/rides.component';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { RidesComponent } from './components/rides/rides.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    CarouselModule.forRoot()
+    CarouselModule.forRoot(),
+    GooglePlaceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

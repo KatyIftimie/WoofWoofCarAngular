@@ -6,59 +6,65 @@
   <h2 style="text-align: center;">Add a ride</h2>
     <div class="form-group">
       <label for="departure">Departure:</label>
-      <input type="text"
-             class="form-control"
-             id="departure"
-             name="departure"
-             [(ngModel)]="newRide.departure"
-             required>
+      <input ngx-google-places-autocomplete  
+        [options]="options"
+        class="form-control"
+        #placesRef="ngx-places"
+        (onAddressChange)="getDeparture($event)"
+        id="departure"
+        name="departure"
+         required/>
+
     </div>
     <div class="form-group">
         <label for="arrival">Arrival:</label>
-        <input type="text"
-               class="form-control"
-               id="arrival"
-               name="arrival"
-               [(ngModel)]="newRide.arrival"
-               required>
+        <input ngx-google-places-autocomplete  
+          [options]="options"
+          #placesRef="ngx-places" 
+          (onAddressChange)="getArrival($event)"
+          class="form-control" 
+          id="arrival"
+          name="arrival"
+          [(ngModel)]="newRide.arrival"
+          required>
       </div>
       <div class="form-group">
         <label for="seatsAvailable">Seats Available:</label>
         <input type="number"
-               class="form-control"
-               id="seatsAvailable"
-               name="seatsAvailable"
-               [(ngModel)]="newRide.seatsAvailable"
-               required>
+          class="form-control"
+          id="seatsAvailable"
+          name="seatsAvailable"
+          [(ngModel)]="newRide.seatsAvailable"
+          required>
       </div>
       <div class="form-group">
         <label for="pricePerSeat">Price (for a seat):</label>
         <input type="number"
-               class="form-control"
-               id="pricePerSeat"
-               name="pricePerSeat"
-               [(ngModel)]="newRide.pricePerSeat"
-               required>
+          class="form-control"
+          id="pricePerSeat"
+          name="pricePerSeat"
+          [(ngModel)]="newRide.pricePerSeat"
+          required>
       </div>
       <div class="form-group">
         <label for="departureTime">Date leaving:</label>
         <input type="datetime-local"
-               class="form-control"
-               id="departureTime"
-               name="departureTime"
-               [(ngModel)]="newRide.departureTime"
-               required>
+          class="form-control"
+          id="departureTime"
+          name="departureTime"
+          [(ngModel)]="newRide.departureTime"
+          required>
       </div>
       <div class="form-group">
         <label for="animalTypeId">Animals type you can take with you::</label>
         <select 
-                class="form-control"
-               id="animalTypeId"
-               name="animalTypeId"
-               [(ngModel)]="newRide.animalTypeId">
+          class="form-control"
+          id="animalTypeId"
+          name="animalTypeId"
+          [(ngModel)]="newRide.animalTypeId">
               
-                   <option *ngFor="let animal of animals[0]" [value]='animal.animalId'>{{animal.name}}</option>
-            </select>
+          <option *ngFor="let animal of animals[0]" [value]='animal.animalId'>{{animal.name}}</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="carTypeId">Car type you're having:</label>
