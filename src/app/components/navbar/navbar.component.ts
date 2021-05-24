@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
-import { LoginService } from './../../services/login.service';
+import { UserService } from '../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,47 +11,40 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   myLocalStorage;
-  userName: string;
-  userDetails: any[] = [];
+
   loginStatus$: Observable<boolean>;
+  currentUser$: Observable<any>;
 
 
-  constructor(public loginService: LoginService, public userService: UserService, private router: Router) {
+  constructor(public userService: UserService, private router: Router) {
     this.myLocalStorage = localStorage;
+    this.loginStatus$ = this.userService.isLoggedIn;
 
   }
 
 
-  ngOnInit() {
-    this.loginStatus$ = this.loginService.isLoggedIn;
-    this.getCurrentUserFullName();
+  ngOnInit(): void {
+    this.loginStatus$ = this.userService.isLoggedIn;
+
+    this.currentUser$ = this.userService.getUserByEmail(localStorage.getItem("userEmail"));
   }
 
 
 
 
 
-  onLogout(): void {
-    if (this.loginService.checkLogin()) {
-      this.loginService.logout();
-      this.router.navigateByUrl("/");
+  onLogout() {
+    if (this.userService.isLoggedIn) {
+
+      this.userService.logout();
+      this.router.navigate(["/"]).then(() => {
+        window.location.reload();
+      });
+
     }
 
   }
 
-  getCurrentUserFullName() {
-    console.log(this.myLocalStorage.currentUser.length);
-    this.loginService.isLoggedIn.subscribe((data) => {
-      console.log("logged in: " + data);
-      if (data) {
-        this.userService.getUserByEmail().subscribe((data) => {
-          this.userDetails.push(data);
-          this.userName = this.userDetails[0].firstName + " " + this.userDetails[0].lastName;
-          console.log(this.userName);
-        });
-      }
-    });
-  }
 }
 
 

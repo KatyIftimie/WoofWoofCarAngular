@@ -1,6 +1,7 @@
-import { LoginService } from './../../services/login.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,30 +9,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user = { email: '', password: '' };
-  currentUser;
+
+  loginForm: FormGroup;
+  returnUrl: string;
 
 
-  constructor(public loginService: LoginService, private router: Router) {
-    this.currentUser = localStorage.getItem('currentUser');
+  constructor(public userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/';
+    this.createLoginForm();
   }
 
-  onSubmit(): void {
-    this.loginService.sendUser(this.user).subscribe(
-      data => {
-        this.currentUser = this.user.email;
-        localStorage.setItem('currentUser', this.user.email);
-        console.log(localStorage.getItem('currentUser'));
+  createLoginForm() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+    })
+  }
 
-        this.user.email = "";
-        this.user.password = "";
-        setInterval(() => { this.router.navigateByUrl("/"), 500 });
-      },
-      error => console.log(error)
-    );
+  onSubmit() {
+    this.userService.login(this.loginForm.value).subscribe(() => {
+      this.router.navigate(["/"]).then(() => {
+        window.location.reload();
+      });
+
+    },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 }

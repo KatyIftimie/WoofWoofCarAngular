@@ -4,7 +4,7 @@ export class Ride {
     departureTime: Date;
     seatsAvailable: number;
     pricePerSeat: number;
-    animalTypeId: string;
+    animalTypeIds: any[] = [];
     carTypeId: string;
     userId: string;
 }

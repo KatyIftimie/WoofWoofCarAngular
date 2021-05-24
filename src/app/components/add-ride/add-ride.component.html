@@ -31,6 +31,8 @@
       <div class="form-group">
         <label for="seatsAvailable">Seats Available:</label>
         <input type="number"
+          min="1"
+          max="8"
           class="form-control"
           id="seatsAvailable"
           name="seatsAvailable"
@@ -40,6 +42,7 @@
       <div class="form-group">
         <label for="pricePerSeat">Price (for a seat):</label>
         <input type="number"
+          min="0"
           class="form-control"
           id="pricePerSeat"
           name="pricePerSeat"
@@ -56,16 +59,22 @@
           required>
       </div>
       <div class="form-group">
-        <label for="animalTypeId">Animals type you can take with you::</label>
-        <select 
-          class="form-control"
-          id="animalTypeId"
-          name="animalTypeId"
-          [(ngModel)]="newRide.animalTypeId">
-              
-          <option *ngFor="let animal of animals[0]" [value]='animal.animalId'>{{animal.name}}</option>
-        </select>
+        <label for="animalTypeIds">Animals type you can take with you:</label>
+
+        <mat-select class="select-all" #select multiple>
+          <div >
+              <mat-checkbox class="select-all2" [(ngModel)]="allSelected"
+                              [ngModelOptions]="{standalone: true}"
+                              (change)="toggleAllSelection()">Select All</mat-checkbox>
+          </div>
+          <mat-option class="option" (click)="optionClick()" *ngFor="let animal of animals[0]" [value]='animal.animalId'>
+            {{animal.name | titlecase }}
+          </mat-option>
+        </mat-select>
       </div>
+
+        <br>
+        <small>*References: Small Dog: < 10kg, Medium Dog: 10-30 kg, Large Dog: 30+ kg.   </small>
       <div class="form-group">
         <label for="carTypeId">Car type you're having:</label>
             <select 

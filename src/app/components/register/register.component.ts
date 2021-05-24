@@ -1,22 +1,11 @@
-import { RegisterService } from './../../services/register.service';
-import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
+import { of, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 
-class PasswordMustMatch {
-  static passwordsMatch(control: AbstractControl): ValidationErrors {
-    const password = control.get('password').value;
-    const confirmPassword = control.get('confirmPassword').value;
-
-    if ((password === confirmPassword) && (password !== null && confirmPassword !== null)) {
-      return null;
-    } else {
-      return { passwordsNotMatching: true };
-    }
-  }
-}
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -26,61 +15,74 @@ export class RegisterComponent implements OnInit {
 
 
   registerForm: FormGroup;
-  newUser: User = new User();
-  registered = false;
+  errors: string[];
 
 
-  constructor(public registerService: RegisterService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(public userService: UserService, private formBuilder: FormBuilder, private router: Router) { }
 
 
 
   ngOnInit() {
-    this.registerService.dataForm = this.formBuilder.group({
-      firstName: [null, Validators.required],
-      lastName: [null, Validators.required],
-      phoneNo: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(6)]],
-      confirmPassword: [null, Validators.required]
-      // acceptTerms: [false, Validators.requiredTrue]
-    },
-      { validators: PasswordMustMatch.passwordsMatch }
-    );
+    this.createRegisterForm();
+  }
 
-    console.log(this.registerService.dataForm.errors);
+  createRegisterForm() {
+    this.registerForm = this.formBuilder.group({
+      firstName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]],
+      phoneNo: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email], [this.validateEmailNotTaken()]],
+      password: [null, [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ["", [Validators.required]]
+    },
+      { validator: ConfirmedValidator('password', 'confirmPassword') }
+    );
   }
 
   get f() {
-    return this.registerService.dataForm.value;
+    return this.registerForm.value;
   }
 
   onSubmit() {
+    this.userService.addUser(this.registerForm.value).subscribe(data => {
+      this.router.navigateByUrl('/');
+    }, error => {
+      this.errors = error.errors;
 
+    }
+    )
+  }
 
-    if (this.registerService.dataForm.value.password == this.registerService.dataForm.value.confirmPassword) {
-      console.log(this.registerService.dataForm.value);
-      console.log(this.registered)
-      if (this.registerService.dataForm.dirty && this.registerService.dataForm.valid) {
-        this.newUser = this.registerService.dataForm.value;
-        this.registerService.addUser(this.newUser)
-          .subscribe(
-            data => {
-              this.registered = true;
-              console.log(data);
-              this.newUser = new User();
-              setInterval(() => { this.router.navigateByUrl("/login"), 500 });
-
-            },
-            error => console.log(error)
+  validateEmailNotTaken(): AsyncValidatorFn {
+    return control => {
+      return timer(500).pipe(
+        switchMap(() => {
+          if (!control.value) {
+            return of(null);
+          }
+          return this.userService.getUserByEmail(control.value).pipe(
+            map(res => {
+              return res ? { emailExists: true } : null;
+            })
           );
-      }
+        })
+      )
     }
-    if (this.registerService.dataForm.invalid) {
-
-      return;
-    }
-
   }
 
 }
 
+function ConfirmedValidator(controlName: string, matchingControlName: string) {
+  return (formGroup: FormGroup) => {
+    const control = formGroup.controls[controlName];
+    const matchingControl = formGroup.controls[matchingControlName];
+    if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
+      return;
+    }
+    if (control.value !== matchingControl.value) {
+      matchingControl.setErrors({ confirmedValidator: true });
+    } else {
+      matchingControl.setErrors(null);
+    }
+  }
+}

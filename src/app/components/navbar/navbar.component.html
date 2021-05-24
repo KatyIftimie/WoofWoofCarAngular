@@ -1,77 +1,39 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="collapse navbar-collapse" id="">
-      <ul class="navbar-nav">
-        <Li class="nav-item">
-          <!-- <a class="nav-link" style="color: lavender; padding: 10px; margin:0; background-color: rgb(173, 91, 231);" routerLink="#"> -->
-            <a class="navbar-brand text-light">Woof Woof Car</a>
-          <!-- </a> -->
-        </Li>
-        <li class="nav-item"  *ngIf="(loginStatus$ | async) as LoginStatus">
-          <a class="nav-link text-light" *ngIf="LoginStatus"  >  Hello {{userName}} !  </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Home page">
-            <a class="nav-link text-light" routerLink="/">[  Home  ]</a>
-        </li>
-
-
-        <li class="nav-item"  *ngIf="(loginStatus$ | async) as LoginStatus">
-          <a class="nav-link text-light" *ngIf="LoginStatus"  routerLink="add-ride">[ Add ride ] </a>
-        </li>
-        <li class="nav-item"  *ngIf="(loginStatus$ | async) as LoginStatus">
-            <a class="nav-link text-light" *ngIf="LoginStatus"  routerLink="rides">[ View rides ]</a>
-          </li>
-
-
-          <li class="nav-item" *ngIf="!(loginStatus$ | async) as LoginStatus">
-            <a class="nav-link text-light p-2" *ngIf="LoginStatus" routerLink="login">[ Login ]</a>
-          </li>
-          
-          <li class="nav-item" *ngIf="!(loginStatus$ | async) as LoginStatus">
-              <a class="nav-link text-light" *ngIf="LoginStatus"  routerLink="register">[ Register ]</a>
-            </li>
-
-          <li class="nav-item "  *ngIf="(loginStatus$ | async) as LoginStatus">
-            <a class="btn btn-white text-light" *ngIf="LoginStatus"  (click)="onLogout()">[ Logout ]</a>
-          </li>
-
-      </ul>
-    </div>
+  <nav class="my-2 my-md-0 me-md-3">
+    <a class="p-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"> <i class="fa fa-paw"></i>  Home</a>
   </nav>
+  
+
+  <div class="d-flex align-items-center">
+      <ng-container *ngIf="(currentUser$ | async) === null">
+        <a class="btn btn-outline-secondary mr-2"  routerLink="login"> Login </a>
+        <a class="btn btn-outline-secondary mr-3"   routerLink="register"> Register </a>
+
+      </ng-container>
+      <ng-container *ngIf="currentUser$ | async">
+        <a class="btn btn-outline-secondary mr-3"   routerLink="add-ride">Add ride  </a>
+        <a class="btn btn-outline-secondary mr-3"   routerLink="rides"> View rides </a>
+
+
+        <div class="dropdown my-2 my-sm-0" dropdown>
+            <a class="dropdown-toggle" style="cursor: pointer; color:rgb(221, 205, 185)" dropdownToggle>
+                <b style="font-weight: 900;">Welcome <i>{{(currentUser$ | async).firstName}}   </i></b>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" style="cursor: pointer;" *bsDropdownMenu>
+                <a routerLink="user-profile" class="dropdown-item d-flex align-items-center py-2">
+                    View Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <a (click)="onLogout()" class="dropdown-item d-flex align-items-center py-2">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </ng-container> 
+  </div>
+
   
 
 
 
 
-<!-- <div class = "container">
-<section class="mt-5">
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
-    <p>EEEE</p>
-    <a class="navbar-brand" href="#">Navbar</a> -->
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
-    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link waves-effect waves-light" href="#">
-            <i class="fas fa-envelope"></i> Contact
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="#">
-            <i class="fas fa-gear"></i> Settings</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user"></i> Profile </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-            <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
-            <a class="dropdown-item waves-effect waves-light" href="#">Log out</a>
-          </div>
-        </li>
-      </ul>
-    </div> -->
-  <!-- </nav>
-</section>
-</div> -->

@@ -1,18 +1,18 @@
 <div class="jumbotron" style="height: 860px; margin-bottom: 0;">
   <div class="container">
-    <form (ngSubmit)="onSubmit()" [hidden]="loginService.checkLogin()">
-  
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" [hidden]="userService.checkLogin()">
+
       <h2 style="text-align: center;">Login User</h2>
   
       <div class="col-md-6 offset-md-3">
       <div class="row">
         <label for="email" class="label-login">Email:</label>
-        <input class="form-control" id="email" type="text" required [(ngModel)]="user.email" ngControl="email"  name="email" required><br>
+        <input class="form-control" id="email" type="text" formControlName="email"  name="email" required><br>
       </div>
   
       <div class="row">
         <label for="password" class="label-login">Password:</label>
-        <input id="password" class="form-control" type="password" required [(ngModel)]="user.password" ngControl="password"  name="password" required>
+        <input id="password" class="form-control" type="password" formControlName="password"  name="password" required>
       </div>
   
   
@@ -23,9 +23,9 @@
     </div>
     </form>
   
-    <div [hidden]="!loginService.checkLogin()">
+    <div [hidden]="!userService.checkLogin()">
       <h3>Logged In Successfully! </h3>
-      <h2>Welcome back, {{currentUser}}!</h2>
+      <h2>Welcome back!</h2>
     </div>
   
   </div>

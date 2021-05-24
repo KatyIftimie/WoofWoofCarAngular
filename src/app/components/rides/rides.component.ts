@@ -18,7 +18,6 @@ export class RidesComponent implements OnInit {
   ngOnInit() {
     this.rideService.getAllRides().subscribe((data: []) => {
       this.rides = data;
-      console.log(this.rides);
     })
   }
 

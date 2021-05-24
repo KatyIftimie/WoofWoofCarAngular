@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+
+#index to protect api key
+/home/katy/Desktop/advancedJava/woofwoofcarangular/src/index.html
