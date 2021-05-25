@@ -60,6 +60,10 @@ export class UserService {
         return this.http.post(url, values);
     }
 
+    updateUser(values: Object): Observable<Object> {
+        return this.http.put<Object>(`${this.apiServerUrl}/user/update-user`, values);
+    }
+
 
 
     checkLogin(): boolean {

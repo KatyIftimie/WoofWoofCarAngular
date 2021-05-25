@@ -37,4 +37,9 @@ export class RideService {
         const url = `${this.apiServerUrl}/ride/rides`
         return this.http.get<Ride[]>(url);
     }
+
+    getRidesByUserId(userId: string) {
+        const url = `${this.apiServerUrl}/ride/rides/${userId}`
+        return this.http.get<Ride[]>(url);
+    }
 }
